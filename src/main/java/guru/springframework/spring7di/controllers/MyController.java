@@ -16,8 +16,7 @@ public class MyController {
 //    doesnt work if in package above spring boot annotated app
     public String sayHello() {
         System.out.println("in controller returning hello ... ");
-
-        System.out.println(greetingService.sayHello());
+        System.out.println("Controller says ".concat(greetingService.sayHello()));
         return greetingService.sayHello();
 
     }
