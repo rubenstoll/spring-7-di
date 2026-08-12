@@ -1,5 +1,6 @@
 package guru.springframework.spring7di.services;
 
+import guru.springframework.spring7di.controllers.MyController;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.beans.BeansException;
@@ -24,7 +25,7 @@ public class LifeCycleDemoBean implements InitializingBean, DisposableBean, Bean
     @Value("${java.specification.version}")
     public void setJavaVersion(String javaVersion) {
         this.javaVersion = javaVersion;
-        System.out.println("# 1 properties set. java version: " + this.javaVersion);
+        System.out.println("## 1 properties set. java version: " + this.javaVersion);
     }
 
     private String javaVersion;
@@ -45,7 +46,7 @@ public class LifeCycleDemoBean implements InitializingBean, DisposableBean, Bean
     }
 
     @PostConstruct
-    public void postConstruct(){
+    public void postConstruct() {
         System.out.println("## 5 postConstruct The Post Construct annotated method has been called");
     }
 
@@ -68,34 +69,24 @@ public class LifeCycleDemoBean implements InitializingBean, DisposableBean, Bean
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         System.out.println("## postProcessBeforeInitialization: " + beanName);
 
-        if (bean instanceof LifeCycleDemoBean){
-            LifeCycleDemoBean myController = (LifeCycleDemoBean) bean;
+        if (bean instanceof MyController myController) {
             System.out.println("Calling before init");
-            beforeInit();
+            myController.beforeInit();
         }
 
         return BeanPostProcessor.super.postProcessBeforeInitialization(bean, beanName);
-    }
-
-    private void beforeInit() {
-        System.out.println("## 6 beforeInit the LifeCycleBean has been called");
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         System.out.println("## postProcessAfterInitialization: " + beanName);
 
-        if (bean instanceof LifeCycleDemoBean){
-            LifeCycleDemoBean myController = (LifeCycleDemoBean) bean;
+        if (bean instanceof MyController myController) {
             System.out.println("Calling after init");
-            afterInit();
+            myController.afterInit();
         }
 
         return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
-    }
-
-    private void afterInit() {
-        System.out.println("## 6 afterInit the LifeCycleBean has been called");
     }
 
 }

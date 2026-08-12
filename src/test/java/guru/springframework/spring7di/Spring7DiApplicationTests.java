@@ -9,9 +9,9 @@ import org.springframework.context.ApplicationContext;
 @SpringBootTest
 class Spring7DiApplicationTests {
 
-	@Autowired
-	private ApplicationContext applicationContext;
-	@Autowired
+    @Autowired
+    private ApplicationContext applicationContext;
+    @Autowired
     private MyController myController;
 
     @Test
@@ -20,12 +20,13 @@ class Spring7DiApplicationTests {
 
     @Test
     void givenAutwiredAppCtx_whenGetControllerBeanSayHello_thenHelloPrinted() {
-		MyController controller = applicationContext.getBean(MyController.class);
-		System.out.println(controller.sayHello());
+        MyController controller = applicationContext.getBean(MyController.class);
+        System.out.println(controller.sayHello());
     }
 
     @Test
     void givenAutowiredController_whenSayHello_thenHelloPrinted() {
-        myController.sayHello();
+        System.out.println(myController.sayHello());
+
     }
 }
